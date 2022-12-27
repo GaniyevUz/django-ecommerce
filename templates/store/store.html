@@ -1,0 +1,32 @@
+{% extends 'store/main.html' %}
+{% block content %}
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-4">
+                <img class="thumbnail" src="{{ product.image_url }}">
+                <div class="box-element product">
+                    <h6><strong>{{ product.name }}</strong></h6>
+                    <hr>
+
+                    <button data-product="{{ product.pk }}" data-action="add"
+                            class="btn btn-outline-secondary add-btn update-cart">Add to Cart
+                    </button>
+                    <a class="btn btn-outline-success" href="#">View</a>
+                    <h4 style="display: inline-block; float: right"><strong>${{ product.price }}</strong></h4>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if checkout %}
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Payment Successful!',
+                text: 'Hello, it’s Ecom. We are sending you a message to inform you that your payment has been successful.',
+            }).then((result) => {
+                window.location.replace("/"); // does not appear on history
+            })
+        </script>
+    {% endif %}
+{% endblock %}
