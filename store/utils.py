@@ -1,4 +1,5 @@
 import json
+
 from .models import Product, Order, Customer, OrderItem
 
 
@@ -29,7 +30,7 @@ def cookieCart(request):
                 item = {
                     'id': product.id,
                     'product': {'id': product.id, 'name': product.name, 'price': product.price,
-                                'imageURL': product.imageURL}, 'quantity': cart[i]['quantity'],
+                                'image_url': product.image_url}, 'quantity': cart[i]['quantity'],
                     'digital': product.digital, 'get_total': total,
                 }
                 items.append(item)
@@ -58,8 +59,8 @@ def cartData(request):
 
 
 def guestOrder(request, data):
-    name = data['form']['name']
-    email = data['form']['email']
+    name = data.get('name')
+    email = data.get('email')
 
     cookieData = cookieCart(request)
     items = cookieData['items']

@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import ListView
 
 from store.models import Product, Order, Customer, OrderItem, ShippingAddress
-from store.utils import guestOrder
+from store.utils import guestOrder, cartData
 
 
 class StoreView(ListView):
@@ -18,7 +18,11 @@ class StoreView(ListView):
             order, created, = Order.objects.get_or_create(customer=customer, complete=False)
             items = order.orderitem_set.all()
         else:
-            items, order = [], {'get_cart_items': 0, 'get_cart_total': 0}
+            data = cartData(self.request)
+
+            cartItems = data['cartItems']
+            order = data['order']
+            items = data['items']
         context['items'] = items
         context['order'] = order
         return context
