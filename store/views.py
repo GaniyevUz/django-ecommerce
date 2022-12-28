@@ -92,10 +92,10 @@ class ProcessOrderView(View):
             ShippingAddress.objects.create(
                 customer=customer,
                 order=order,
-                address=data['shipping']['address'],
-                city=data['shipping']['city'],
-                state=data['shipping']['state'],
-                zipcode=data['shipping']['zipcode'],
+                address=data['address'],
+                city=data['city'],
+                state=data['state'],
+                zipcode=data['zipcode'],
             )
 
         return render(request, 'store/store.html', {'checkout': True})
